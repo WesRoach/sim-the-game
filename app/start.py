@@ -16,6 +16,18 @@ class Stack():
     def getTopCard(self):
         return self.cards[-1]
 
+    def placeCard(self, card):
+        if self.getOrder() == 'asc':
+            if card > self.getTopCard():
+                self.cards.append(card)
+            else:
+                return -1
+        else:
+            if card < self.getTopCard():
+                self.cards.append(card)
+            else:
+                return -1
+
 
 # board is made of four stacks
 class Board():
@@ -47,7 +59,7 @@ class Deck():
 
     # Remove N cards from deck and return it
     def drawCards(self, n: int):
-        draw_cards = self.deck[self.topCard:int(n)]
+        draw_cards = self.deck[self.topCard:(self.topCard + int(n))]
         self.topCard += int(n)
         return draw_cards
 
@@ -75,7 +87,40 @@ class Game():
             player.hand = self.deck.drawCards(self.cards_per_player)
 
     def play(self):
-        pass
+        while self.deck.getRemainingCardsCount() > 0:
+            # Print Game state
+            print("\n=== The Game ===")
+            print('Cards in Deck: %s' % len(self.deck.getRemainingCards()) )
+            print('-- Board --')
+            for idx, stack in enumerate(self.board.getStacks()):
+                _topCard = stack.getTopCard()
+                _order = stack.getOrder()
+                print(f'[{idx + 1}] {_order} Top Card: {_topCard}')
+
+            for idx, player in enumerate(self.players):
+                print(f'-- Player {idx}\'s Hand --')
+                print(player.hand)
+
+            # Player Options
+            print("")
+            print("[D]raw Cards, or [P]lay")
+            draw_or_play = input(": ")
+
+            if draw_or_play in ('D', 'd'):
+                cards_to_draw_num = \
+                    self.cards_per_player - len(self.players[0].hand)
+                # TODO(Wes): player index update
+                self.players[0].hand.extend(self.deck.drawCards(cards_to_draw_num))
+            elif draw_or_play in ('P', 'p'):
+                card = int(input("Card: "))
+                stack = int(input("Stack: "))
+                # try to place card on stack
+                self.board.stacks[stack - 1].placeCard(card)
+                # TODO(Wes): this index is garbage
+                self.players[0].hand.remove(card)
+            else:
+                pass
+                # TODO(Wes)
 
 
 if __name__ == "__main__":
