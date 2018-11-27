@@ -42,6 +42,9 @@ class Deck():
     def getOriginalCards(self):
         return self.deck
 
+    def getRemainingCardsCount(self):
+        return 100 - self.topCard
+
     # Remove N cards from deck and return it
     def drawCards(self, n):
         draw_cards = self.deck[self.topCard:n]
