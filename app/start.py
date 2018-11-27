@@ -99,7 +99,9 @@ class Game():
 
             for idx, player in enumerate(self.players):
                 print(f'-- Player {idx}\'s Hand --')
-                print(player.hand)
+                # print(player.hand)
+                for idx, card in enumerate(player.hand):
+                    print(f'[{idx + 1}] {card}')
 
             # Player Options
             print("")
