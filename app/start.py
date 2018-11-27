@@ -99,7 +99,6 @@ class Game():
 
             for idx, player in enumerate(self.players):
                 print(f'-- Player {idx}\'s Hand --')
-                # print(player.hand)
                 for idx, card in enumerate(player.hand):
                     print(f'[{idx + 1}] {card}')
 
@@ -114,8 +113,12 @@ class Game():
                 # TODO(Wes): player index update
                 self.players[0].hand.extend(self.deck.drawCards(cards_to_draw_num))
             elif draw_or_play in ('P', 'p'):
-                card = int(input("Card: "))
+                card_idx = int(input("Card: "))
                 stack = int(input("Stack: "))
+                
+                # convert card_idx to card
+                card = self.players[0].hand[card_idx - 1]
+
                 # try to place card on stack
                 self.board.stacks[stack - 1].placeCard(card)
                 # TODO(Wes): this index is garbage
