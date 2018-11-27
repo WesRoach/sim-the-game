@@ -46,9 +46,9 @@ class Deck():
         return 100 - self.topCard
 
     # Remove N cards from deck and return it
-    def drawCards(self, n):
-        draw_cards = self.deck[self.topCard:n]
-        self.topCard += n
+    def drawCards(self, n: int):
+        draw_cards = self.deck[self.topCard:int(n)]
+        self.topCard += int(n)
         return draw_cards
 
 
