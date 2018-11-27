@@ -86,11 +86,19 @@ class Game():
         for player in self.players:
             player.hand = self.deck.drawCards(self.cards_per_player)
 
-    def input_card_stack(self, card_idx, stack_idx):
-        """
-        Handle Game logic when given card/stack index from player's hand.
-        """
-        pass
+    def input_card_stack(self):
+        while True:
+            try:
+                selected_card, selected_stack = map(int, input(": ").split())
+            except:
+                print("Please enter a [Card] Index, [Space], [Stack] Index")
+                print("Example places card 3 on stack 1:")
+                print("3 1")
+                continue
+            else:
+                break
+
+        return selected_card, selected_stack
 
 
     def play(self):
@@ -112,7 +120,7 @@ class Game():
             # Player Options
             print("")
             print("[Card] [Stack]")
-            selected_card, selected_stack = map(int, input(": ").split())
+            selected_card, selected_stack = self.input_card_stack()
 
             # convert card_idx to card
             card = self.players[0].hand[selected_card - 1]
