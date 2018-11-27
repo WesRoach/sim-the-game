@@ -86,6 +86,13 @@ class Game():
         for player in self.players:
             player.hand = self.deck.drawCards(self.cards_per_player)
 
+    def input_card_stack(self, card_idx, stack_idx):
+        """
+        Handle Game logic when given card/stack index from player's hand.
+        """
+        pass
+
+
     def play(self):
         while self.deck.getRemainingCardsCount() > 0:
             # Print Game state
@@ -104,33 +111,26 @@ class Game():
 
             # Player Options
             print("")
-            print("[D]raw Cards, or [P]lay")
-            draw_or_play = input(": ")
+            print("[Card] [Stack]")
+            selected_card, selected_stack = map(int, input(": ").split())
 
-            if draw_or_play in ('D', 'd'):
-                cards_to_draw_num = \
-                    self.cards_per_player - len(self.players[0].hand)
-                # TODO(Wes): player index update
-                self.players[0].hand.extend(self.deck.drawCards(cards_to_draw_num))
-            elif draw_or_play in ('P', 'p'):
-                card_idx = int(input("Card: "))
-                stack = int(input("Stack: "))
-                
-                # convert card_idx to card
-                card = self.players[0].hand[card_idx - 1]
+            # convert card_idx to card
+            card = self.players[0].hand[selected_card - 1]
 
-                # try to place card on stack
-                self.board.stacks[stack - 1].placeCard(card)
-                # TODO(Wes): this index is garbage
-                self.players[0].hand.remove(card)
-            else:
-                pass
-                # TODO(Wes)
+            # try to place card on stack
+            self.board.stacks[selected_stack - 1].placeCard(card)
+            self.players[0].hand.remove(card)
+            
+            # Draw cards
+            cards_to_draw_num = self.cards_per_player - len(self.players[0].hand)
+            self.players[0].hand.extend(self.deck.drawCards(cards_to_draw_num))
 
 
 if __name__ == "__main__":
-    num_players = input("Player Count: ")
-    cards_per_player = input("Cards per Player: ")
+    # num_players = input("Player Count: ")
+    # cards_per_player = input("Cards per Player: ")
+    num_players = 1
+    cards_per_player = 7
 
     # start a game
     game = Game(num_players, cards_per_player)
