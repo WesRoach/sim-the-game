@@ -106,6 +106,10 @@ class Game:
 
         return selected_card, selected_stack
 
+    def display_hand(self, player):
+        for idx, card in enumerate(player.hand):
+            print(f"[{idx + 1}] {card}")
+
     def play(self):
         while self.deck.getRemainingCardsCount() > 0:
             # Print Game state
@@ -119,8 +123,7 @@ class Game:
 
             for idx, player in enumerate(self.players):
                 print(f"-- Player {idx}'s Hand --")
-                for idx, card in enumerate(player.hand):
-                    print(f"[{idx + 1}] {card}")
+                self.display_hand(player)
 
             # Player Options
             print("")
