@@ -73,6 +73,12 @@ class Player:
     def __init__(self):
         self.hand = []
 
+    def swap_by_value(self, outCard, inCard):
+        """
+        Replaces card in Player's hand.
+        """
+        self.hand[self.hand.index(outCard)] = inCard
+
 
 # Game logic
 class Game:
@@ -136,11 +142,10 @@ class Game:
             # try to place card on stack
             if self.board.stacks[selected_stack - 1].placeCard(card):
                 # if card placed - remove from player's hand
-                self.players[0].hand.remove(card)
-
-                # Draw missing cards
-                cards_to_draw_num = self.cards_per_player - len(self.players[0].hand)
-                self.players[0].hand.extend(self.deck.drawCards(cards_to_draw_num))
+                # self.players[0].hand.remove(card)
+                # cards_to_draw_num = self.cards_per_player - len(self.players[0].hand)
+                # self.players[0].hand.extend(self.deck.drawCards(cards_to_draw_num))
+                self.players[0].swap_by_value(card, self.deck.drawCards(1).pop())
 
 
 if __name__ == "__main__":
