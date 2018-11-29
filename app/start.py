@@ -1,3 +1,5 @@
+import sys
+
 import random
 
 
@@ -90,6 +92,8 @@ class Game():
         while True:
             try:
                 selected_card, selected_stack = map(int, input(": ").split())
+            except KeyboardInterrupt:
+                sys.exit(0)
             except:
                 print("Please enter a [Card] Index, [Space], [Stack] Index")
                 print("Example places card 3 on stack 1:")
