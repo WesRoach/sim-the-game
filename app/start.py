@@ -112,7 +112,8 @@ class Game:
 
         return selected_card, selected_stack
 
-    def display_hand(self, player):
+    def display_hand(self, idx, player):
+        print(f"-- Player {idx}'s Hand --")
         for idx, card in enumerate(player.hand):
             print(f"[{idx + 1}] {card}")
 
@@ -128,8 +129,7 @@ class Game:
                 print(f"[{idx + 1}] {_order} Top Card: {_topCard}")
 
             for idx, player in enumerate(self.players):
-                print(f"-- Player {idx}'s Hand --")
-                self.display_hand(player)
+                self.display_hand(idx, player)
 
             # Player Options
             print("")
