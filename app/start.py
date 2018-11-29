@@ -22,13 +22,15 @@ class Stack():
         if self.getOrder() == 'asc':
             if card > self.getTopCard():
                 self.cards.append(card)
+                return True
             else:
-                return -1
+                return False
         else:
             if card < self.getTopCard():
                 self.cards.append(card)
+                return True
             else:
-                return -1
+                return False
 
 
 # board is made of four stacks
@@ -130,12 +132,13 @@ class Game():
             card = self.players[0].hand[selected_card - 1]
 
             # try to place card on stack
-            self.board.stacks[selected_stack - 1].placeCard(card)
-            self.players[0].hand.remove(card)
-            
-            # Draw cards
-            cards_to_draw_num = self.cards_per_player - len(self.players[0].hand)
-            self.players[0].hand.extend(self.deck.drawCards(cards_to_draw_num))
+            if (self.board.stacks[selected_stack - 1].placeCard(card)):
+                # if card placed - remove from player's hand
+                self.players[0].hand.remove(card)
+
+                # Draw missing cards
+                cards_to_draw_num = self.cards_per_player - len(self.players[0].hand)
+                self.players[0].hand.extend(self.deck.drawCards(cards_to_draw_num))
 
 
 if __name__ == "__main__":
