@@ -42,6 +42,15 @@ class Board:
     def getStacks(self):
         return self.stacks
 
+    def getTopCards(self):
+        return [
+                    {
+                        'card': stack.getTopCard(),
+                        'order': stack.getOrder()
+                    }
+                    for stack in self.getStacks()
+                ]
+
 
 # deck is shuffled cards 2 through 99
 class Deck:
@@ -109,13 +118,16 @@ class Game:
                 continue
             else:
                 break
-
         return selected_card, selected_stack
 
     def display_hand(self, idx, player):
         print(f"-- Player {idx}'s Hand --")
-        for idx, card in enumerate(player.hand):
-            print(f"[{idx + 1}] {card}")
+        for idx, player_card in enumerate(player.hand):
+
+            top_cards = self.board.getTopCards()
+            diff = [player_card - top_card['card'] for top_card in top_cards]
+
+            print(f"[{idx + 1}] {player_card}   Diff: {diff}")
 
     def play(self):
         while self.deck.getRemainingCardsCount() > 0:
