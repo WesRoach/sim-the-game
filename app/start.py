@@ -109,6 +109,10 @@ class Game:
         while True:
             try:
                 selected_card, selected_stack = map(int, input(": ").split())
+
+                if selected_stack > 4 or selected_stack < 1:
+                    print("[Stack] must be between 1 and 4.")
+                    continue
             except KeyboardInterrupt:
                 sys.exit(0)
             except:
