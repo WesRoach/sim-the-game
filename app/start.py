@@ -125,6 +125,9 @@ class Game:
                 if selected_stack > 4 or selected_stack < 1:
                     print("[Stack] must be between 1 and 4.")
                     continue
+                if  selected_card > self.cards_per_player or selected_card < 1:
+                    print(f'[Card] must be between 1 and {self.cards_per_player}')
+                    continue
             except KeyboardInterrupt:
                 sys.exit(0)
             except:
