@@ -131,7 +131,7 @@ class Game:
             except KeyboardInterrupt:
                 sys.exit(0)
             except:
-                print("Please enter a [Card] Index, [Space], [Stack] Index")
+                print("Invalid Input.")
                 print("Example places card 3 on stack 1:")
                 print("3 1")
                 continue
