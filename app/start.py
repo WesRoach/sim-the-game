@@ -18,17 +18,29 @@ class Stack:
     def getTopCard(self):
         return self.cards[-1]
 
+    def setOrder(self, order):
+        if order in ['asc', 'desc']:
+            self.order = order
+        else:
+            print('Order must be either "asc" or "desc".')
+
     def placeCard(self, card):
         if self.getOrder() == "asc":
             if card > self.getTopCard():
                 self.cards.append(card)
                 return True
+            elif (card + 10) == self.getTopCard():
+                self.cards.append(card)
+                self.setOrder('desc')
             else:
                 return False
         else:
             if card < self.getTopCard():
                 self.cards.append(card)
                 return True
+            elif (card - 10) == self.getTopCard():
+                self.cards.append(card)
+                self.setOrder('asc')
             else:
                 return False
 
