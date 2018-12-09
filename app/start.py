@@ -146,7 +146,8 @@ class Game:
             top_cards = self.board.getTopCards()
             diff = [player_card - top_card['card'] for top_card in top_cards]
 
-            print(f"[{idx + 1}] {player_card}   Diff: {diff}")
+            print(f"[{idx + 1:1}] {player_card:2}"
+                  f"  Diff: {diff[0]:3} {diff[1]:3} {diff[2]:3} {diff[3]:3}")
 
     def play(self):
         while self.deck.getRemainingCardsCount() > 0:
