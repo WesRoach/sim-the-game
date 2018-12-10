@@ -63,6 +63,12 @@ class Board:
                     for stack in self.getStacks()
                 ]
 
+    def getPlayedCards(self):
+        played_cards = []
+        for stack in self.getStacks():
+            played_cards.append(stack.getCards())
+        return played_cards
+
 
 # deck is shuffled cards 2 through 99
 class Deck:
@@ -160,8 +166,15 @@ class Game:
                 _order = stack.getOrder()
                 print(f"[{idx + 1}] {_order} Top Card: {_topCard}")
 
+            # Display Player's hand
             for idx, player in enumerate(self.players):
                 self.display_hand(idx, player)
+
+            # Display played cards in each stack
+            print("\nCards Played:")
+            print("[Stack]: [Cards]")
+            for idx, stack in enumerate(self.board.getStacks()):
+                print(f'[{idx + 1:1}]:     {stack.getCards()}')
 
             # Player Options
             print("")
