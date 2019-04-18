@@ -19,7 +19,7 @@ class Stack:
         return self.cards[-1]
 
     def setOrder(self, order):
-        if order in ['asc', 'desc']:
+        if order in ["asc", "desc"]:
             self.order = order
         else:
             print('Order must be either "asc" or "desc".')
@@ -31,7 +31,7 @@ class Stack:
                 return True
             elif (card + 10) == self.getTopCard():
                 self.cards.append(card)
-                self.setOrder('desc')
+                self.setOrder("desc")
             else:
                 return False
         else:
@@ -40,7 +40,7 @@ class Stack:
                 return True
             elif (card - 10) == self.getTopCard():
                 self.cards.append(card)
-                self.setOrder('asc')
+                self.setOrder("asc")
             else:
                 return False
 
@@ -56,12 +56,9 @@ class Board:
 
     def getTopCards(self):
         return [
-                    {
-                        'card': stack.getTopCard(),
-                        'order': stack.getOrder()
-                    }
-                    for stack in self.getStacks()
-                ]
+            {"card": stack.getTopCard(), "order": stack.getOrder()}
+            for stack in self.getStacks()
+        ]
 
     def getPlayedCards(self):
         played_cards = []
@@ -131,8 +128,8 @@ class Game:
                 if selected_stack > 4 or selected_stack < 1:
                     print("[Stack] must be between 1 and 4.")
                     continue
-                if  selected_card > self.cards_per_player or selected_card < 1:
-                    print(f'[Card] must be between 1 and {self.cards_per_player}')
+                if selected_card > self.cards_per_player or selected_card < 1:
+                    print(f"[Card] must be between 1 and {self.cards_per_player}")
                     continue
             except KeyboardInterrupt:
                 sys.exit(0)
@@ -150,10 +147,12 @@ class Game:
         for idx, player_card in enumerate(player.hand):
 
             top_cards = self.board.getTopCards()
-            diff = [player_card - top_card['card'] for top_card in top_cards]
+            diff = [player_card - top_card["card"] for top_card in top_cards]
 
-            print(f"[{idx + 1:1}] {player_card:2}"
-                  f"  Diff: {diff[0]:3} {diff[1]:3} {diff[2]:3} {diff[3]:3}")
+            print(
+                f"[{idx + 1:1}] {player_card:2}"
+                f"  Diff: {diff[0]:3} {diff[1]:3} {diff[2]:3} {diff[3]:3}"
+            )
 
     def play(self):
         while self.deck.getRemainingCardsCount() > 0:
@@ -174,7 +173,7 @@ class Game:
             print("\nCards Played:")
             print("[Stack]: [Cards]")
             for idx, stack in enumerate(self.board.getStacks()):
-                print(f'[{idx + 1:1}]:     {stack.getCards()}')
+                print(f"[{idx + 1:1}]:     {stack.getCards()}")
 
             # Player Options
             print("")
